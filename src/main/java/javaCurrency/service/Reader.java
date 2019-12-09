@@ -1,34 +1,11 @@
-package javaCurrency;
+package javaCurrency.service;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
-import java.net.URL;
-
-public class XMLReader {
-
-    public static void readFromUrl(String url) {
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        try {
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse((new URL(url).openStream()));
-            doc.getDocumentElement().normalize();
-            printResults(doc);
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+public class Reader  {
 
     public static void publicationDate(Document doc) {
         NodeList nodes = doc.getElementsByTagName("tabela_kursow");
@@ -39,27 +16,12 @@ public class XMLReader {
                 System.out.println("Data publikacji tabeli " + getValue("data_publikacji", element));
             }
         }
-    }
-
-    public static void readFromFilePath(String filePath) {
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        try {
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(filePath);
-            doc.getDocumentElement().normalize();
-            printResults(doc);
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        }
+        System.out.println();
     }
 
     public static void printResults(Document doc) {
         publicationDate(doc);
-        System.out.println("Nazwa tabeli" + doc.getDocumentElement().getNodeName());
+        System.out.println("Nazwa tabeli: " + doc.getDocumentElement().getNodeName());
         NodeList nodes = doc.getElementsByTagName("pozycja");
         System.out.println("==========================");
         for (int i = 0; i < nodes.getLength(); i++) {

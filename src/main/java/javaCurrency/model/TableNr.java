@@ -8,10 +8,9 @@ public class TableNr {
     private char controlLetter = 'z';
     private LocalDate localDate;
 
-    public TableNr(char table, int tableEncodedNumber, char controlLetter, LocalDate localDate) {
+    public TableNr(char table, int tableEncodedNumber, LocalDate localDate) {
         this.table = table;
         this.tableEncodedNumber = tableEncodedNumber;
-        this.controlLetter = controlLetter;
         this.localDate = localDate;
     }
 

@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class XMLReader extends Reader {
 
-    public static void readFromFilePath(String filePath) {
+    public void readFromFilePath(String filePath) {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -25,5 +25,4 @@ public class XMLReader extends Reader {
             e.printStackTrace();
         }
     }
-
 }

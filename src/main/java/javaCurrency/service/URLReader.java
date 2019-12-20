@@ -66,6 +66,11 @@ public class URLReader extends Reader {
         String preparedLink = "http://www.nbp.pl/kursy/xml/" + xmlName;
         readFromUrl(preparedLink);
     }
+
+    public void printMostRecentCurrenciesResultFromWeb() {
+        String najnowszeNotowanieTabelaA = "http://www.nbp.pl/kursy/xml/LastA.xml";
+        readFromUrl(najnowszeNotowanieTabelaA);
+    }
 }
 
 

@@ -6,11 +6,19 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class URLReader extends Reader {
+
+    TableNrDecoder tableNrDecoder;
 
     public void buildLink() {
         Scanner scanner = new Scanner(System.in);
@@ -23,11 +31,11 @@ public class URLReader extends Reader {
 
         String elementStaly = "z";
 
-        System.out.println("Podaj rok");
+        System.out.println("Podaj rok (YY/mm/dd)");
         String rok = scanner.next();
-        System.out.println("Podaj miesiac");
+        System.out.println("Podaj miesiac (yy/MM/dd)");
         String miesiac = scanner.next();
-        System.out.println("Podaj dzien");
+        System.out.println("Podaj dzien (yy/mm/DD)");
         String dzien = scanner.next();
 
         String xml = ".xml";
@@ -35,12 +43,42 @@ public class URLReader extends Reader {
         StringBuilder stringBuilder = new StringBuilder();
         StringBuilder xmlAppend = stringBuilder.append(tabelaKursow).append(numerTabeli).append(elementStaly).append(rok).append(miesiac).append(dzien).append(xml);
         String xmlName = xmlAppend.toString();
+        if (checkIfTableNameExsist(xmlName) == true) {
+            createLinkToGivenUrl(xmlName);
+        } else {
+            System.out.println("Tabela nieistnieje");
+        }
         scanner.close();
-
-        createLinkToGivenUrl(xmlName);
     }
 
-    TableNrDecoder tableNrDecoder;
+    private boolean checkIfTableNameExsist(String xmlName) {
+        List<String> list = new ArrayList<>();
+        String tableCodesURL = "https://www.nbp.pl/kursy/xml/dir.txt";
+        try {
+            URL website = new URL(tableCodesURL);
+            URLConnection connection = website.openConnection();
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(
+                            connection.getInputStream()));
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                list.add(inputLine);
+            }
+            in.close();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        if (list.isEmpty()) {
+            return false;
+        } else {
+            System.out.println("tabela istnieje i ma sie dobrze");
+            return true;
+        }
+    }
 
     public static void readFromUrl(String url) {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();

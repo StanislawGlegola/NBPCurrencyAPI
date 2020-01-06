@@ -1,5 +1,6 @@
 package javaCurrency.service;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class MainApi {
@@ -24,7 +25,7 @@ public class MainApi {
                 urlReader.printMostRecentCurrenciesResultFromWeb();
                 break;
             case 2:
-                urlReader.buildLink();
+                    urlReader.buildLink();
                 break;
             case 3:
                 xmlReader.getFileName();

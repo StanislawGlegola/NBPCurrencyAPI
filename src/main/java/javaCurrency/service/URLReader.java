@@ -41,43 +41,19 @@ public class URLReader extends Reader {
         String xml = ".xml";
 
         StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder stringBuild = new StringBuilder();
         StringBuilder xmlAppend = stringBuilder.append(tabelaKursow).append(numerTabeli).append(elementStaly).append(rok).append(miesiac).append(dzien).append(xml);
-        String xmlName = xmlAppend.toString();
-        if (checkIfTableNameExsist(xmlName) == true) {
-            createLinkToGivenUrl(xmlName);
+        String tableNameWithXml = xmlAppend.toString();
+
+        StringBuilder withoutXmlAppend = stringBuild.append(tabelaKursow).append(numerTabeli).append(elementStaly).append(rok).append(miesiac).append(dzien);
+        String tableNameWithoutXml = withoutXmlAppend.toString();
+
+        if (checkIfTablenameExsist(tableNameWithoutXml) == true) {
+            createLinkToGivenUrl(tableNameWithXml);
         } else {
             System.out.println("Tabela nieistnieje");
         }
         scanner.close();
-    }
-
-    private boolean checkIfTableNameExsist(String xmlName) {
-        List<String> list = new ArrayList<>();
-        String tableCodesURL = "https://www.nbp.pl/kursy/xml/dir.txt";
-        try {
-            URL website = new URL(tableCodesURL);
-            URLConnection connection = website.openConnection();
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(
-                            connection.getInputStream()));
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                list.add(inputLine);
-            }
-            in.close();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        if (list.isEmpty()) {
-            return false;
-        } else {
-            System.out.println("tabela istnieje i ma sie dobrze");
-            return true;
-        }
     }
 
     public static void readFromUrl(String url) {
@@ -101,14 +77,71 @@ public class URLReader extends Reader {
     }
 
     public void createLinkToGivenUrl(String xmlName) {
-        String preparedLink = "http://www.nbp.pl/kursy/xml/" + xmlName;
+        String preparedLink = "https://www.nbp.pl/kursy/xml/" + xmlName;
         readFromUrl(preparedLink);
     }
 
     public void printMostRecentCurrenciesResultFromWeb() {
-        String najnowszeNotowanieTabelaA = "http://www.nbp.pl/kursy/xml/LastA.xml";
+        String najnowszeNotowanieTabelaA = "https://www.nbp.pl/kursy/xml/LastA.xml";
         readFromUrl(najnowszeNotowanieTabelaA);
     }
+
+    public List addAllTablenamesFromUrlToList() {
+        List<String> list = new ArrayList<>();
+        String tableCodesURL = "https://www.nbp.pl/kursy/xml/dir.txt";
+        try {
+            URL website = new URL(tableCodesURL);
+            URLConnection connection = website.openConnection();
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(
+                            connection.getInputStream()));
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                list.add(inputLine);
+            }
+            in.close();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public boolean checkIfTablenameExsist(String tablenameWithoutXml) {
+        List<String> list = addAllTablenamesFromUrlToList();
+        if (list.isEmpty()) {
+            System.out.println("Lista pusta.");
+            return false;
+        } else {
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).equals(tablenameWithoutXml)) {
+                    System.out.println("This tablename exists.");
+                    return true;
+                }
+            }
+            return true;
+        }
+    }
+
+    public void findAllTablenamesAvailable() {
+        List<String> list = addAllTablenamesFromUrlToList();
+        if (list.isEmpty()) {
+            System.out.println("Pusta lista");
+        } else {
+            for (String lista : list) {
+                System.out.println(lista);
+            }
+        }
+    }
+
+    public void printListOfAllTablenames() {
+        List<String> list = addAllTablenamesFromUrlToList();
+        for (String lista : list) {
+            System.out.println(lista);
+        }
+    }
+
 }
 
 

@@ -9,32 +9,22 @@ public class Reader {
 
     public static void tableType(Document doc) {
         NodeList nodes = doc.getElementsByTagName("tabela_kursow");
+
         for (int i = 0; i < nodes.getLength(); i++) {
             Node node = nodes.item(i);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
                 System.out.println("Numer tabeli " + getValue("numer_tabeli", element));
-            }
-        }
-        System.out.println();
-    }
-
-    public static void publicationDate(Document doc) {
-        NodeList nodes = doc.getElementsByTagName("tabela_kursow");
-        for (int i = 0; i < nodes.getLength(); i++) {
-            Node node = nodes.item(i);
-            if (node.getNodeType() == Node.ELEMENT_NODE) {
-                Element element = (Element) node;
                 System.out.println("Data publikacji tabeli " + getValue("data_publikacji", element));
             }
         }
         System.out.println();
     }
 
+
     public static void printResults(Document doc) {
-        publicationDate(doc);
         tableType(doc);
-        System.out.println("Nazwa tabeli: " + doc.getDocumentElement().getNodeName());
+        //System.out.println("Nazwa tabeli: " + doc.getDocumentElement().getNodeName());
         NodeList nodes = doc.getElementsByTagName("pozycja");
         System.out.println("==========================");
         for (int i = 0; i < nodes.getLength(); i++) {

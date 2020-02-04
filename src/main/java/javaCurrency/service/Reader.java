@@ -5,12 +5,23 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class Reader {
+public class Reader  {
 
     //http://www.nbp.pl/kursy/xml/c025z100205.xml
 
-    //metoda surowa, moze nie dzialc
-    public static void checkWhichTableIsCalled(Document doc) {
+        public static void tableType(Document doc) {
+        NodeList nodes = doc.getElementsByTagName("tabela_kursow");
+        for (int i = 0; i < nodes.getLength(); i++) {
+            Node node = nodes.item(i);
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                System.out.println("Numer tabeli " + getValue("numer_tabeli", element));
+            }
+        }
+        System.out.println();
+    }
+
+    public static void publicationDate(Document doc) {
         NodeList nodes = doc.getElementsByTagName("tabela_kursow");
         System.out.println("==========================");
         String nazwaTabeli;
@@ -41,6 +52,7 @@ public class Reader {
                 }
             }
         }
+        System.out.println();
     }
 
     // ta metoda musi wyszukiwac Stringa tuz po pierwszym slashu /
@@ -52,8 +64,9 @@ public class Reader {
     }
 
     public static void printResultsFromAandBtable(Document doc) {
-        //tableType(doc);
-        //System.out.println("Nazwa tabeli: " + doc.getDocumentElement().getNodeName());
+        publicationDate(doc);
+        tableType(doc);
+        System.out.println("Nazwa tabeli: " + doc.getDocumentElement().getNodeName());
         NodeList nodes = doc.getElementsByTagName("pozycja");
         System.out.println("==========================");
         for (int i = 0; i < nodes.getLength(); i++) {

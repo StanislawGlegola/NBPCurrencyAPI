@@ -56,11 +56,6 @@ public class URLReader extends Reader {
         scanner.close();
     }
 
-    public void printMostRecentCurrenciesResultFromWeb() {
-        String najnowszeNotowanieTabelaA = "https://www.nbp.pl/kursy/xml/LastA.xml";
-        readFromUrl(najnowszeNotowanieTabelaA);
-    }
-
     public static void readFromUrl(String url) {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         try {
@@ -85,6 +80,11 @@ public class URLReader extends Reader {
     public void createLinkToGivenUrl(String xmlName) {
         String preparedLink = "https://www.nbp.pl/kursy/xml/" + xmlName;
         readFromUrl(preparedLink);
+    }
+
+    public void printMostRecentCurrenciesResultFromWeb() {
+        String najnowszeNotowanieTabelaA = "https://www.nbp.pl/kursy/xml/LastA.xml";
+        readFromUrl(najnowszeNotowanieTabelaA);
     }
 
     public List addAllTablenamesFromUrlToList() {
@@ -145,6 +145,7 @@ public class URLReader extends Reader {
 
 }
 
+
         /* Nazwy wszystkich plików mają taki sam format:
 
 'xnnnzrrmmdd.xml'
@@ -177,6 +178,6 @@ h026z100208
 ...
 
 A zatem szukany plik znajduje się pod adresem:
-http://www.nbp.pl/kursy/xml/c025z100205.xml
+http://www.nbp.pl/kursy/xml/a025z100205.xml
 Aktualne (ostanie) pliki z tabelami kursów A, B i C dostępne są również pod następującymi nazwami (odpowiednio): LastA.xml, LastB.xml, LastC.xml.*/
 

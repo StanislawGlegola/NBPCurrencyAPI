@@ -27,7 +27,7 @@ public class XMLReader extends Reader {
         }
     }
 
-    public void getFileName() {
+    public void getByFilename() {
         System.out.println("Podaj nazwe pliku: ");
         Scanner scan = new Scanner(System.in);
         String fileName = scan.next();

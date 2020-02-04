@@ -56,11 +56,16 @@ public class URLReader extends Reader {
         scanner.close();
     }
 
+    public void printMostRecentCurrenciesResultFromWeb() {
+        String najnowszeNotowanieTabelaA = "https://www.nbp.pl/kursy/xml/LastA.xml";
+        readFromUrl(najnowszeNotowanieTabelaA);
+    }
+
     public static void readFromUrl(String url) {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse((new URL(url).openStream()));
+            Document doc = dBuilder.parse(new URL(url).openStream());
             doc.getDocumentElement().normalize();
             printResults(doc);
         } catch (ParserConfigurationException e) {
@@ -81,10 +86,6 @@ public class URLReader extends Reader {
         readFromUrl(preparedLink);
     }
 
-    public void printMostRecentCurrenciesResultFromWeb() {
-        String najnowszeNotowanieTabelaA = "https://www.nbp.pl/kursy/xml/LastA.xml";
-        readFromUrl(najnowszeNotowanieTabelaA);
-    }
 
     public List addAllTablenamesFromUrlToList() {
         List<String> list = new ArrayList<>();

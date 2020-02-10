@@ -17,7 +17,7 @@ public class XMLReader extends Reader {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(filePath);
             doc.getDocumentElement().normalize();
-            printResults(doc);
+            printResultsFromAandBtable(doc);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -27,7 +27,7 @@ public class XMLReader extends Reader {
         }
     }
 
-    public void getFileName() {
+    public void getByFilename() {
         System.out.println("Podaj nazwe pliku: ");
         Scanner scan = new Scanner(System.in);
         String fileName = scan.next();

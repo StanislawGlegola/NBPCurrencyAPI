@@ -60,9 +60,10 @@ public class URLReader extends Reader {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse((new URL(url).openStream()));
+            Document doc = dBuilder.parse(new URL(url).openStream());
             doc.getDocumentElement().normalize();
-            printResults(doc);
+            publicationDate(doc);
+            //printResultsFromAandBtable(doc);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (SAXException e) {

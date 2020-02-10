@@ -16,6 +16,7 @@ public class MainApi {
         System.out.println("4. Podaj wszystkie dostepne nazwy tabel.");
         System.out.println("5. Sprawdz czy podana lista istnieje.");
         System.out.println("6. Wypisz wszystkie nazwy tabel.");
+        System.out.println("7. Sprawdz typ tabeli.");
 
         int pos1 = scan.nextInt();
         switchOptions(pos1);
@@ -41,6 +42,9 @@ public class MainApi {
             case 6:
                 urlReader.printListOfAllTablenames();
                 break;
+            /*case 7:
+                urlReader.checkWhichTableIsCalled();
+                break;*/
         }
     }
 }

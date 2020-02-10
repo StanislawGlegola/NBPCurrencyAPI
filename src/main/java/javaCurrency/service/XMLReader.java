@@ -17,7 +17,7 @@ public class XMLReader extends Reader {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(filePath);
             doc.getDocumentElement().normalize();
-            printResults(doc);
+            printResultsFromAandBtable(doc);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (IOException e) {

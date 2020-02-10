@@ -67,7 +67,8 @@ public class URLReader extends Reader {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(new URL(url).openStream());
             doc.getDocumentElement().normalize();
-            printResults(doc);
+            checkWhichTableIsCalled(doc);
+            //printResultsFromAandBtable(doc);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (SAXException e) {
@@ -85,7 +86,6 @@ public class URLReader extends Reader {
         String preparedLink = "https://www.nbp.pl/kursy/xml/" + xmlName;
         readFromUrl(preparedLink);
     }
-
 
     public List addAllTablenamesFromUrlToList() {
         List<String> list = new ArrayList<>();
@@ -178,6 +178,6 @@ h026z100208
 ...
 
 A zatem szukany plik znajduje się pod adresem:
-http://www.nbp.pl/kursy/xml/a025z100205.xml
+http://www.nbp.pl/kursy/xml/c025z100205.xml
 Aktualne (ostanie) pliki z tabelami kursów A, B i C dostępne są również pod następującymi nazwami (odpowiednio): LastA.xml, LastB.xml, LastC.xml.*/
 

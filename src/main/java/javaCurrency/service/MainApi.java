@@ -42,6 +42,9 @@ public class MainApi {
             case 6:
                 urlReader.printListOfAllTablenames();
                 break;
+            /*case 7:
+                urlReader.checkWhichTableIsCalled();
+                break;*/
         }
     }
 }

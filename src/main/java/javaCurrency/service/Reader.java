@@ -64,9 +64,8 @@ public class Reader  {
     }
 
     public static void printResultsFromAandBtable(Document doc) {
-        publicationDate(doc);
         tableType(doc);
-        System.out.println("Nazwa tabeli: " + doc.getDocumentElement().getNodeName());
+        //System.out.println("Nazwa tabeli: " + doc.getDocumentElement().getNodeName());
         NodeList nodes = doc.getElementsByTagName("pozycja");
         System.out.println("==========================");
         for (int i = 0; i < nodes.getLength(); i++) {
@@ -94,11 +93,6 @@ public class Reader  {
                 System.out.println("Kurs kupna: " + getValue("kurs_kupna", element));
                 System.out.println("Kurs sprzedazy: " + getValue("kurs_sprzedazy", element));
                 System.out.println("***********************************");
-
-            /*<kod_waluty>USD</kod_waluty>
-<kurs_kupna>2,9057</kurs_kupna>
-<kurs_sprzedazy>2,9645</kurs_sprzedazy>*/
-
             }
         }
     }

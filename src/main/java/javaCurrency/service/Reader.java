@@ -5,12 +5,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import javax.management.StringValueExp;
-
 public class Reader {
 
     //http://www.nbp.pl/kursy/xml/c025z100205.xml
-
 
     //metoda surowa, moze nie dzialc
     public static void checkWhichTableIsCalled(Document doc) {
@@ -23,7 +20,7 @@ public class Reader {
                 Element element = (Element) node;
                 //System.out.println("Waluta: " + getValue("numer_tabeli", element));
                 nazwaTabeli = getValue("numer_tabeli", element);
-                String tableLLetter = checkLetter(nazwaTabeli);
+                String tableLLetter = checkTableTypeLetter(nazwaTabeli);
 
                 switch (tableLLetter) {
                     case "A":
@@ -36,6 +33,7 @@ public class Reader {
                         break;
                     case "C":
                         System.out.println("Nazwa tabeli to: C " + nazwaTabeli);
+                        printResultsFromCtable(doc);
                         break;
                     default:
                         System.out.println("Nie napotkalo kodu tabeli.");
@@ -46,14 +44,15 @@ public class Reader {
     }
 
     // ta metoda musi wyszukiwac Stringa tuz po pierwszym slashu /
-    private static String checkLetter(String nazwaTabeli) {
+    // 25/C/NBP/2010  <-- w typ wypadku 3+1
+    private static String checkTableTypeLetter(String nazwaTabeli) {
         int letterPosition = nazwaTabeli.indexOf("/");
         String letter = String.valueOf(nazwaTabeli.charAt(letterPosition+1));
         return letter;
     }
 
     public static void printResultsFromAandBtable(Document doc) {
-        tableType(doc);
+        //tableType(doc);
         //System.out.println("Nazwa tabeli: " + doc.getDocumentElement().getNodeName());
         NodeList nodes = doc.getElementsByTagName("pozycja");
         System.out.println("==========================");
@@ -69,7 +68,35 @@ public class Reader {
         }
     }
 
-    public static void tableType(Document doc) {
+    public static void printResultsFromCtable(Document doc) {
+        //tableType(doc);
+        //System.out.println("Nazwa tabeli: " + doc.getDocumentElement().getNodeName());
+        NodeList nodes = doc.getElementsByTagName("pozycja");
+        System.out.println("==========================");
+        for (int i = 0; i < nodes.getLength(); i++) {
+            Node node = nodes.item(i);
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                System.out.println("Waluta: " + getValue("kod_waluty", element));
+                System.out.println("Kurs kupna: " + getValue("kurs_kupna", element));
+                System.out.println("Kurs sprzedazy: " + getValue("kurs_sprzedazy", element));
+                System.out.println("***********************************");
+
+            /*<kod_waluty>USD</kod_waluty>
+<kurs_kupna>2,9057</kurs_kupna>
+<kurs_sprzedazy>2,9645</kurs_sprzedazy>*/
+
+            }
+        }
+    }
+
+    public static String getValue(String symbol, Element element) {
+        NodeList nodes = element.getElementsByTagName(symbol).item(0).getChildNodes();
+        Node node = nodes.item(0);
+        return node.getNodeValue();
+    }
+
+    /*public static void tableType(Document doc) {
         NodeList nodes = doc.getElementsByTagName("tabela_kursow");
 
         for (int i = 0; i < nodes.getLength(); i++) {
@@ -81,19 +108,11 @@ public class Reader {
             }
         }
         System.out.println();
-    }
+    }*/
 
     /*public static void checkTableType(Document doc) {
         NodeList nodes = doc.getElementsByTagName("tabela_kursow");
 
     }*/
 
-    // ta metoda wypisuje tabele a i B
-
-
-    public static String getValue(String symbol, Element element) {
-        NodeList nodes = element.getElementsByTagName(symbol).item(0).getChildNodes();
-        Node node = nodes.item(0);
-        return node.getNodeValue();
-    }
 }

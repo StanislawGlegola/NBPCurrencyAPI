@@ -145,7 +145,6 @@ public class URLReader extends Reader {
 
 }
 
-
         /* Nazwy wszystkich plików mają taki sam format:
 
 'xnnnzrrmmdd.xml'

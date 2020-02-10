@@ -62,7 +62,7 @@ public class URLReader extends Reader {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(new URL(url).openStream());
             doc.getDocumentElement().normalize();
-            checkWhichTableIsCalled(doc);
+            publicationDate(doc);
             //printResultsFromAandBtable(doc);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();

@@ -34,13 +34,10 @@ public class MainApi {
                 xmlReader.getByFilename();
                 break;
             case 4:
-                urlReader.findAllTablenamesAvailable();
+                urlReader.printListOfAllTablenames();
                 break;
             case 5:
-                urlReader.checkIfTablenameExsist("a012z200120");
-                break;
-            case 6:
-                urlReader.printListOfAllTablenames();
+                urlReader.checkIfTablenameExist("a012z200120");
                 break;
             /*case 7:
                 urlReader.checkWhichTableIsCalled();

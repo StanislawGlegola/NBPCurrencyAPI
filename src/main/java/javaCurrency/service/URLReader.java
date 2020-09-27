@@ -25,30 +25,30 @@ public class URLReader extends Reader {
 
         //a , b , c , h
         System.out.println("Wybierz tabele kursów średnich walut obcych. a, b, c, h");
-        String tabelaKursow = scanner.next();
+        String oddsTable = scanner.next();
         System.out.println("Podaj trzyliczbowy numer tabeli");
-        String numerTabeli = scanner.next();
+        String tableNumber = scanner.next();
 
-        String elementStaly = "z";
+        String constantElement = "z";
 
         System.out.println("Podaj rok (YY/mm/dd)");
-        String rok = scanner.next();
+        String year = scanner.next();
         System.out.println("Podaj miesiac (yy/MM/dd)");
-        String miesiac = scanner.next();
+        String mounth = scanner.next();
         System.out.println("Podaj dzien (yy/mm/DD)");
-        String dzien = scanner.next();
+        String day = scanner.next();
 
         String xml = ".xml";
 
         StringBuilder stringBuilder = new StringBuilder();
         StringBuilder stringBuild = new StringBuilder();
-        StringBuilder xmlAppend = stringBuilder.append(tabelaKursow).append(numerTabeli).append(elementStaly).append(rok).append(miesiac).append(dzien).append(xml);
+        StringBuilder xmlAppend = stringBuilder.append(oddsTable).append(tableNumber).append(constantElement).append(year).append(mounth).append(day).append(xml);
         String tableNameWithXml = xmlAppend.toString();
 
-        StringBuilder withoutXmlAppend = stringBuild.append(tabelaKursow).append(numerTabeli).append(elementStaly).append(rok).append(miesiac).append(dzien);
+        StringBuilder withoutXmlAppend = stringBuild.append(oddsTable).append(tableNumber).append(constantElement).append(year).append(mounth).append(day);
         String tableNameWithoutXml = withoutXmlAppend.toString();
 
-        if (checkIfTablenameExsist(tableNameWithoutXml) == true) {
+        if (checkIfTablenameExist(tableNameWithoutXml) == true) {
             createLinkToGivenUrl(tableNameWithXml);
         } else {
             System.out.println("Tabela nieistnieje");
@@ -62,7 +62,7 @@ public class URLReader extends Reader {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(new URL(url).openStream());
             doc.getDocumentElement().normalize();
-            publicationDate(doc);
+            printMenuFromGivenTableLetter(doc);
             //printResultsFromAandBtable(doc);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
@@ -73,18 +73,14 @@ public class URLReader extends Reader {
         }
     }
 
-    public void printResultFromGivenUrl(String url) {
-        readFromUrl(url);
-    }
-
     public void createLinkToGivenUrl(String xmlName) {
         String preparedLink = "https://www.nbp.pl/kursy/xml/" + xmlName;
         readFromUrl(preparedLink);
     }
 
     public void printMostRecentCurrenciesResultFromWeb() {
-        String najnowszeNotowanieTabelaA = "https://www.nbp.pl/kursy/xml/LastA.xml";
-        readFromUrl(najnowszeNotowanieTabelaA);
+        String mostRecentTableA = "https://www.nbp.pl/kursy/xml/LastA.xml";
+        readFromUrl(mostRecentTableA);
     }
 
     public List addAllTablenamesFromUrlToList() {
@@ -109,7 +105,7 @@ public class URLReader extends Reader {
         return list;
     }
 
-    public boolean checkIfTablenameExsist(String tablenameWithoutXml) {
+    public boolean checkIfTablenameExist(String tablenameWithoutXml) {
         List<String> list = addAllTablenamesFromUrlToList();
         if (list.isEmpty()) {
             System.out.println("Lista pusta.");
@@ -125,24 +121,12 @@ public class URLReader extends Reader {
         }
     }
 
-    public void findAllTablenamesAvailable() {
-        List<String> list = addAllTablenamesFromUrlToList();
-        if (list.isEmpty()) {
-            System.out.println("Pusta lista");
-        } else {
-            for (String lista : list) {
-                System.out.println(lista);
-            }
-        }
-    }
-
     public void printListOfAllTablenames() {
         List<String> list = addAllTablenamesFromUrlToList();
         for (String lista : list) {
             System.out.println(lista);
         }
     }
-
 }
 
 

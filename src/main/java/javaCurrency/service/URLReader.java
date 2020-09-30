@@ -20,7 +20,7 @@ public class URLReader extends Reader {
 
     TableNrDecoder tableNrDecoder;
 
-    public void buildLink() {
+    public void buildXMLtableName() {
         Scanner scanner = new Scanner(System.in);
 
         //a , b , c , h
@@ -62,7 +62,7 @@ public class URLReader extends Reader {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(new URL(url).openStream());
             doc.getDocumentElement().normalize();
-            publicationDate(doc);
+            checkTableLetterAndPrintIt(doc);
             //printResultsFromAandBtable(doc);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();

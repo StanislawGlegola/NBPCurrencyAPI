@@ -21,7 +21,7 @@ public class Reader  {
         System.out.println();
     }
 
-    public static void publicationDate(Document doc) {
+    public static void checkTableLetterAndPrintIt(Document doc) {
         NodeList nodes = doc.getElementsByTagName("tabela_kursow");
         System.out.println("==========================");
         String nazwaTabeli;
@@ -36,11 +36,11 @@ public class Reader  {
                 switch (tableLLetter) {
                     case "A":
                         System.out.println("Nazwa tabeli to: A " + nazwaTabeli);
-                        printResultsFromAandBtable(doc);
+                        printResultsFromAorBtable(doc);
                         break;
                     case "B":
                         System.out.println("Nazwa tabeli to: B " + nazwaTabeli);
-                        printResultsFromAandBtable(doc);
+                        printResultsFromAorBtable(doc);
                         break;
                     case "C":
                         System.out.println("Nazwa tabeli to: C " + nazwaTabeli);
@@ -63,7 +63,7 @@ public class Reader  {
         return letter;
     }
 
-    public static void printResultsFromAandBtable(Document doc) {
+    public static void printResultsFromAorBtable(Document doc) {
         tableType(doc);
         //System.out.println("Nazwa tabeli: " + doc.getDocumentElement().getNodeName());
         NodeList nodes = doc.getElementsByTagName("pozycja");
